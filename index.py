@@ -10,12 +10,12 @@ class Product :
         resp = requests.get(url)
         with open('skus.xml', 'wb') as f: 
             f.write(resp.content) 
-    def update(self,url):
+    def update(self,url,i):
         resp= requests.get(url)
-        with open("badminton.csv","wb") as f : 
+        with open("origFile"+str(i)+".csv","wb") as f : 
             f.write(resp.content)
-    def check_availability(self,fileName):
-        with open("badminton.csv",'r') as f:
+    def check_availability(self,fileName,i):
+        with open("origFile"+str(i)+".csv",'r') as f:
             editFile= open(fileName,'w',newline="") 
             editWriter=csv.writer(editFile)
             csvfile =csv.reader(f,delimiter="\t")
@@ -42,7 +42,7 @@ products =Product();
 products.update_skuList();
 products.read_xml();
 for i in range(len(url)):
-    products.update(url[i])
+    products.update(url[i],i)
     #print(skuList)
-    products.check_availability(names[i]);
+    products.check_availability(names[i],i);
 
