@@ -35,7 +35,7 @@ class Product :
                 skuList.append(str(i.find('sku').text).strip())
 
 products =Product();
-#products.update()
+products.update()
 products.read_xml();
 #print(skuList)
 products.check_availability();
