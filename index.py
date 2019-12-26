@@ -5,18 +5,18 @@ skuList= []
 class Product : 
     def __init__(self):
         pass
-    def update(self):
-        url="https://www.badmintonschlager.de/api/?route=export/feed&id=google_shopping&lang=de"
-        resp= requests.get(url)
-        with open("badminton.csv","wb") as f : 
-            f.write(resp.content)
+    def update_skuList(self):
         url="http://ec2-35-180-156-95.eu-west-3.compute.amazonaws.com/inventory/preorder/?fbclid=IwAR25jXqX0Peor-klBzHHMfW98SJFoYunnn4mk0hfQexfAKYnoV1DkqiFNk4"
         resp = requests.get(url)
         with open('skus.xml', 'wb') as f: 
             f.write(resp.content) 
-    def check_availability(self):
+    def update(self,url):
+        resp= requests.get(url)
+        with open("badminton.csv","wb") as f : 
+            f.write(resp.content)
+    def check_availability(self,fileName):
         with open("badminton.csv",'r') as f:
-            editFile= open("output.csv",'w',newline="") 
+            editFile= open(fileName,'w',newline="") 
             editWriter=csv.writer(editFile)
             csvfile =csv.reader(f,delimiter="\t")
             for rows in csvfile :
@@ -34,9 +34,15 @@ class Product :
             for i in products: 
                 skuList.append(str(i.find('sku').text).strip())
 
+url=["https://www.badmintonschlager.de/api/?route=export/feed&id=google_shopping&lang=de","https://www.onlinebadminton.co.uk/api/?route=export/feed&id=google_shopping",
+"https://www.raquettedebadminton.fr/api/?route=export/feed&id=google_shopping","https://www.pestisport.hu/api/?route=export/feed&id=google_shopping"]
+names =["german_feed.csv","english_feed.csv","french_feed.csv","hungarian_feed.csv"]
+
 products =Product();
-products.update()
+products.update_skuList();
 products.read_xml();
-#print(skuList)
-products.check_availability();
+for i in range(len(url)):
+    products.update(url[i])
+    #print(skuList)
+    products.check_availability(names[i]);
 
