@@ -35,7 +35,7 @@ class Product :
                 skuList.append(str(i.find('sku').text).strip())
 
 url=["https://www.badmintonschlager.de/api/?route=export/feed&id=google_shopping&lang=de","https://www.onlinebadminton.co.uk/api/?route=export/feed&id=google_shopping",
-"https://www.raquettedebadminton.fr/api/?route=export/feed&id=google_shopping","https://www.pestisport.hu/api/?route=export/feed&id=google_shopping"]
+"https://www.raquettedebadminton.fr/api/?route=export/feed&id=google_shopping","https://www.pestisport.hu/api/?route=export/feed&id=google_shopping&password=pestisport"]
 names =["german_feed.csv","english_feed.csv","french_feed.csv","hungarian_feed.csv"]
 
 products =Product();
