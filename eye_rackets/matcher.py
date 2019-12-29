@@ -49,8 +49,6 @@ for product in products :
     filegtin=str(product.find('gtin').text).strip() 
     hashvalue=str(product.find('hash').text).strip() 
     if(filegtin in gtin_website) :
-        pass
-    else:
         to_be_enables.append(hashvalue)
 notavailablexml.close()
 print(to_be_enables)
