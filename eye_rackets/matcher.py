@@ -48,7 +48,7 @@ products = root.findall("./product")
 for product in products : 
     filegtin=str(product.find('gtin').text).strip() 
     hashvalue=str(product.find('hash').text).strip() 
-    if(filegtin not in gtin_website) :
+    if(filegtin in gtin_website) :
         pass
     else:
         to_be_enables.append(hashvalue)
